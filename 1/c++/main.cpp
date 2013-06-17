@@ -1,7 +1,6 @@
 #include <iostream>
 #include <map>
 #include <assert.h>
-#include <sstream>
 
 using namespace std;
 
@@ -26,16 +25,9 @@ bool allCharsUniqueByTypeLess( const string& s )
 {
     for ( unsigned int i = 0; i < s.length(); i++ )
     {
-        char c1 = s[i];
-        for ( unsigned int j = 0; j < s.length(); j++ )
+        for ( unsigned int j = i + 1; j < s.length(); j++ )
         {
-            if ( i == j )
-            {
-                continue;
-            }
-
-            char c2 = s[j];
-            if ( c1 == c2 )
+            if ( s[i] == s[j] )
             {
                 return false;
             }
@@ -62,4 +54,6 @@ int main( int argc, char *argv[] )
     assert( allCharsUniqueByTypeLess( "aBb" ) == true );
     assert( allCharsUniqueByTypeLess( "aBbBbB" ) != true );
     assert( allCharsUniqueByTypeLess( " %123 4" ) != true );
+
+    return 0;
 }
