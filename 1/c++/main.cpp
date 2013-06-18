@@ -6,8 +6,8 @@ using namespace std;
 
 bool allCharsUniqueByMap( const string& s )
 {
-    map<char, int> m;
-    for ( unsigned int i = 0; i < s.length(); i++ )
+    map<char, bool> m;
+    for ( unsigned i = 0; i < s.length(); i++ )
     {
         char c = s[i];
         if ( m[c] )
@@ -15,7 +15,7 @@ bool allCharsUniqueByMap( const string& s )
             return false;
         }
 
-        m[c] = m[c] + 1;
+        m[c] = true;
     }
 
     return true;
