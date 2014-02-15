@@ -136,9 +136,11 @@ int main()
         stack.push( 3 );
 
         Stack<int> stack2;
-        stack2.push( stack.pop() );
-        stack2.push( stack.pop() );
-        stack2.push( stack.pop() );
+
+        while ( !stack.empty() )
+        {
+            stack2.push( stack.pop() );
+        }
 
         assert( stack2.empty() == false );
         assert( stack2.pop() == 1 );
