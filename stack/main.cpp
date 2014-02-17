@@ -87,6 +87,46 @@ public:
     TMP( int i ): v( i ) {}
 };
 
+template <class T>
+class Queue
+{
+    Stack<T> s1;
+    Stack<T> s2;
+    unsigned c;
+public:
+    Queue(): c( 0 ){}
+
+    void push( const T &v )
+    {
+        s1.push( v );
+        c++;
+    }
+
+    bool empty()
+    {
+        return c == 0;
+    }
+
+    T pop()
+    {
+        while ( !s1.empty() )
+        {
+            s2.push( s1.pop() );
+        }
+
+        auto v = s2.pop();
+        while ( !s2.empty() )
+        {
+            s1.push( s2.pop() );
+        }
+
+        c--;
+        std::cout << "pop " << v << std::endl;
+        return v;
+    }
+
+
+};
 int main()
 {
     {
@@ -149,5 +189,32 @@ int main()
 
     }
 
+    {
+        Queue<int> q;
+        q.push( 1 );
+        q.push( 2 );
+        q.push( 3 );
+        q.push( 4 );
 
+        assert( q.empty() == false );
+        assert( q.pop() == 1 );
+        assert( q.pop() == 2 );
+        assert( q.pop() == 3 );
+        assert( q.pop() == 4 );
+        assert( q.empty() == true );
+
+        q.push( 1 );
+        q.push( 2 );
+        assert( q.pop() == 1 );
+        q.push( 3 );
+        assert( q.pop() == 2 );
+        q.push( 4 );
+        assert( q.pop() == 3 );
+        assert( q.pop() == 4 );
+        assert( q.empty() == true );
+
+
+
+
+    }
 }

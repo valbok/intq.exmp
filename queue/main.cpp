@@ -22,9 +22,9 @@ class Queue
 public:
     Queue(): head( 0 ), tail( 0 ) {}
 
-    Queue( const Queue<T>& list ): head( 0 ), tail( 0 )
+    Queue( const Queue<T>& q ): head( 0 ), tail( 0 )
     {
-        for ( Item<T> *i = list.head; i; i = i->next )
+        for ( Item<T> *i = q.head; i; i = i->next )
         {
             push( i->value );
         }
@@ -74,47 +74,146 @@ public:
     TMP( int i ): v( i ) {}
 };
 
+// Stack by one Queue
+template <class T>
+class Stack
+{
+    Queue<T> q1;
+    unsigned c;
+public:
+    Stack(): c( 0 ){}
+
+    void push( const T &v )
+    {
+        q1.push( v );
+        c++;
+    }
+
+    bool empty()
+    {
+        return c == 0;
+    }
+
+    T pop()
+    {
+        if ( empty() )
+        {
+            throw "error";
+        }
+
+        for ( int i = 0; i < c - 1; i++ )
+        {
+            q1.push( q1.pop() );
+        }
+
+        c--;
+
+        return q1.pop();
+    }
+};
+
 int main()
 {
     {
-        Queue<int> list;
-        list.push( 1 );
-        list.push( 2 );
-        list.push( 3 );
+        Queue<int> q;
+        q.push( 1 );
+        q.push( 2 );
+        q.push( 3 );
 
-        Queue<int> list2( list );
-        assert( list2.empty() == false );
-        assert( list2.pop() == 1 );
-        assert( list2.empty() == false );
-        assert( list2.pop() == 2 );
-        assert( list2.empty() == false );
-        assert( list2.pop() == 3 );
-        assert( list2.empty() == true );
+        Queue<int> q2( q );
+        assert( q2.empty() == false );
+        assert( q2.pop() == 1 );
+        assert( q2.empty() == false );
+        assert( q2.pop() == 2 );
+        assert( q2.empty() == false );
+        assert( q2.pop() == 3 );
+        assert( q2.empty() == true );
 
-        assert( list.empty() == false );
-        assert( list.pop() == 1 );
-        assert( list.empty() == false );
-        assert( list.pop() == 2 );
-        assert( list.empty() == false );
-        assert( list.pop() == 3 );
-        assert( list.empty() == true );
+        assert( q.empty() == false );
+        assert( q.pop() == 1 );
+        assert( q.empty() == false );
+        assert( q.pop() == 2 );
+        assert( q.empty() == false );
+        assert( q.pop() == 3 );
+        assert( q.empty() == true );
 
     }
 
     {
-        Queue<TMP> list;
-        list.push( TMP(1) );
-        list.push( TMP(2) );
-        list.push( TMP(3) );
+        Queue<TMP> q;
+        q.push( TMP(1) );
+        q.push( TMP(2) );
+        q.push( TMP(3) );
 
-        assert( list.empty() == false );
-        assert( list.pop().v == 1 );
-        assert( list.empty() == false );
-        assert( list.pop().v == 2 );
-        assert( list.empty() == false );
-        assert( list.pop().v == 3 );
-        assert( list.empty() == true );
+        assert( q.empty() == false );
+        assert( q.pop().v == 1 );
+        assert( q.empty() == false );
+        assert( q.pop().v == 2 );
+        assert( q.empty() == false );
+        assert( q.pop().v == 3 );
+        assert( q.empty() == true );
     }
+    {
+        Queue<int> q1;
+        Queue<int> q2;
+        q1.push( 1 );
+        q1.push( 2 );
+        q1.push( 3 );
+        q1.push( 4 );
+        q1.push( 5 );
+        q1.push( 6 );
+        int c = 6;
+        while ( !q1.empty() )
+        {
+            for ( int j = 0; j < c - 1; j++ )
+            {
+                q1.push( q1.pop() );
+            }
 
+            q2.push( q1.pop() );
+            c--;
+        }
+
+        assert( q2.pop() == 6 );
+        assert( q2.pop() == 5 );
+        assert( q2.pop() == 4 );
+        assert( q2.pop() == 3 );
+        assert( q2.pop() == 2 );
+        assert( q2.pop() == 1 );
+
+
+    }
+    {
+        Stack<int> s;
+        s.push( 1 );
+        s.push( 2 );
+        s.push( 3 );
+        s.push( 4 );
+        s.push( 5 );
+        s.push( 6 );
+
+        assert( s.empty() == false );
+        assert( s.pop() == 6 );
+        assert( s.pop() == 5 );
+        assert( s.pop() == 4 );
+        assert( s.pop() == 3 );
+        assert( s.pop() == 2 );
+        assert( s.pop() == 1 );
+        assert( s.empty() == true );
+
+        s.push( 1 );
+        s.push( 2 );
+        assert( s.pop() == 2 );
+        s.push( 3 );
+        s.push( 4 );
+        assert( s.pop() == 4 );
+        assert( s.pop() == 3 );
+        s.push( 5 );
+        assert( s.pop() == 5 );
+        assert( s.pop() == 1 );
+        assert( s.empty() == true );
+
+
+    }
 
 }
