@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
         string word;
         file >> word;
 
-        // Need to remove non alphabetical or numeric characters
+        // Need to remove non alphabetical/numeric characters
         word.erase(std::remove_if(word.begin(), word.end(), notalum), word.end());
 
         if (word.empty())
