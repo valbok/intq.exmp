@@ -23,7 +23,7 @@ void print(map<K, V> m, ostream &f) {
 }
 
 void showHelp(const char *appName) {
-    cerr <<  "Usage: " << appName << " [options] INPUT_FILENAME\n\n" \
+    cerr <<  "Usage: " << appName << " [options] INPUT_FILENAME\n\n"
              "  -h, -help                   display this help and exit\n"
              "  --filename=OUTPUT_FILENAME  print result to filename. Will print to stdout by default.\n"
              "\n";
