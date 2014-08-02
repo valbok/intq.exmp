@@ -17,8 +17,8 @@
 using namespace std;
 
 template <class K, class V>
-void print(map<K, V> m, ostream &f) {
-    for (typename std::map<K, V>::iterator p = m.begin(); p != m.end(); p++)
+void print(const map<K, V> &m, ostream &f) {
+    for (typename std::map<K, V>::const_iterator p = m.begin(); p != m.end(); p++)
         f << p->first << ": " << p->second << endl;
 }
 
