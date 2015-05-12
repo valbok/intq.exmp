@@ -16,6 +16,7 @@ function numOfPlaylist( $N,  $K,  $L) {
             $rec($s, $depth + 1);
         }
     };
+
     // Call closure.
     $rec();
 
@@ -33,7 +34,6 @@ function numOfPlaylist( $N,  $K,  $L) {
         if ($k < $K or $K == 0) {
             $res[] = $items;
         }
-
     }
 
     return count($res);
@@ -41,13 +41,8 @@ function numOfPlaylist( $N,  $K,  $L) {
 
    
 $__fp = fopen("php://stdin", "r");
-
 fscanf($__fp, "%d", $_N);
-
-
 fscanf($__fp, "%d", $_K);
-
-
 fscanf($__fp, "%d", $_L);
 
 $res = numOfPlaylist($_N, $_K, $_L);
