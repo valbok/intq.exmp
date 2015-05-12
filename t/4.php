@@ -20,7 +20,7 @@ function numOfPlaylist( $N,  $K,  $L) {
     $rec();
 
     $res = [];
-    // Looking fo duplicates.
+    // Looking for duplicates.
     foreach ($list as $key => $items) {
         $k = 0;        
         for ($i = 0; $i < count($items); $i++) {
