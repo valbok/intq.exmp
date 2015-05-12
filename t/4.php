@@ -17,7 +17,6 @@ function numOfPlaylist( $N,  $K,  $L) {
         }
     };
 
-    // Call closure.
     $rec();
 
     $res = [];
