@@ -22,9 +22,10 @@ function numOfPlaylist( $N,  $K,  $L) {
     $res = [];
     // Looking for duplicates.
     foreach ($list as $key => $items) {
-        $k = 0;        
-        for ($i = 0; $i < count($items); $i++) {
-            for ($j = $i + 1; $j < count($items); $j++) {
+        $k = 0;
+        $c = count($items);
+        for ($i = 0; $i < $c; $i++) {
+            for ($j = $i + 1; $j < $c; $j++) {
                 if ($items[$i] == $items[$j]) {
                     $k++;                
                 }
