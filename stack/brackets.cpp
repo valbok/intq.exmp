@@ -23,7 +23,6 @@ bool check(const string& str) {
                     return false;
                 }
                 st.pop();
-
             break;
             case '[':
                 st.push('[');
@@ -51,8 +50,7 @@ bool check(const string& str) {
     return st.empty();
 }
 
-int main()
-{
+int main() {
     assert(check("a(b)"));
     assert(check("[{}]"));
     assert(check("[(]") == false);
@@ -68,4 +66,6 @@ int main()
     assert(check("[[[(]]]") == false);
     assert(check("[[[(])]]") == false);
     assert(check("[[[()]]]"));
+    assert(check("[{(") == false);
+    assert(check("[{()}]"));
 }
