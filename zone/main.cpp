@@ -9,8 +9,8 @@ using namespace std;
 
 int solution(vector<int> &A) {
     sort(A.begin(), A.end());
-    int q = 1;
-    int r = 2;
+    unsigned q = 1;
+    unsigned r = 2;
     for (unsigned p = 0; p < A.size() - 2; ++p) {
         q = p + 1;
         r = q + 1;
