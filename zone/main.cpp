@@ -11,7 +11,7 @@ int solution(vector<int> &A) {
     sort(A.begin(), A.end());
     int q = 1;
     int r = 2;
-    for (int p = 0; p < A.size() - 2; ++p) {
+    for (int p = 0; p < static_cast<int>(A.size()) - 2; ++p) {
         q = p + 1;
         r = q + 1;
         if (A[r] < A[p] + A[q]) {
