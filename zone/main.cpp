@@ -9,9 +9,9 @@ using namespace std;
 
 int solution(vector<int> &A) {
     sort(A.begin(), A.end());
-    unsigned q = 1;
-    unsigned r = 2;
-    for (unsigned p = 0; p < A.size() - 2; ++p) {
+    int q = 1;
+    int r = 2;
+    for (int p = 0; p < A.size() - 2; ++p) {
         q = p + 1;
         r = q + 1;
         if (A[r] < A[p] + A[q]) {
@@ -19,7 +19,7 @@ int solution(vector<int> &A) {
         }
     }
 
-    for (unsigned p = 0; p < q; ++p) {
+    for (int p = 0; p < q; ++p) {
         int s = A[p] + A[q];
         int l = abs(A[p] - A[q]);
         if (A[r] < s && A[r] > l) {
@@ -32,11 +32,11 @@ int solution(vector<int> &A) {
 
 int slow_solution(vector<int> &A) {
     int min = INT_MAX;
-    for (unsigned p = 0; p < A.size() - 2; ++p) {
-        for (unsigned q = p + 1; q < A.size() - 1; ++q) {
+    for (int p = 0; p < A.size() - 2; ++p) {
+        for (int q = p + 1; q < A.size() - 1; ++q) {
             int s = A[p] + A[q];
             int l = abs(A[p] - A[q]);
-            for (unsigned r = q + 1; r < A.size(); ++r) {
+            for (int r = q + 1; r < A.size(); ++r) {
                 if (A[r] < s && A[r] > l) {
                     int sum = A[p] + A[q] + A[r];
                     if (sum < min) {
@@ -92,7 +92,7 @@ int main() {
     }
     {
         vector<int> v;
-        for (unsigned i = 0; i < 1000; ++i) {
+        for (int i = 0; i < 1000; ++i) {
             v.push_back(rand() % 1000000);
         }
         int s = solution(v);
@@ -103,7 +103,7 @@ int main() {
     {
         vector<int> v;
         int n = 100000;
-        for (unsigned i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             v.push_back(rand() % 1000000);
         }
         float userTime;
