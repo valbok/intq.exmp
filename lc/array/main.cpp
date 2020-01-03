@@ -59,6 +59,16 @@ Given an array, rotate the array to the right by k steps, where k is non-negativ
 
 
 ***
+Given an array of integers, find if the array contains any duplicates.
+
+Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.
+
+***
+Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+***
+Given two arrays, write a function to compute their intersection.
+
+***
 Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
 
 The digits are stored such that the most significant digit is at the head of the list, and each element in the array contain a single digit.
