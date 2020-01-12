@@ -32,7 +32,7 @@ int solution(vector<int> &A) {
     return 0;
 }
 int main() {
-    vector<int>A={1,3,1,2,2,9,9,1};
+    vector<int>A={1,1,2,1,2,1};
     cout <<solution(A)<<endl;
 
 }
