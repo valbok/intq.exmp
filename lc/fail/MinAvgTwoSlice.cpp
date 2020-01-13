@@ -9,7 +9,14 @@ For example, array A such that:
     A[4] = 1
     A[5] = 5
     A[6] = 8
-    
+
+    contains the following example slices:
+
+slice (1, 2), whose average is (2 + 2) / 2 = 2;
+slice (3, 4), whose average is (5 + 1) / 2 = 3;
+slice (1, 4), whose average is (2 + 2 + 5 + 1) / 4 = 2.5.
+The goal is to find the starting position of a slice whose average is minimal.
+
 public int solution(int[] A) {
     if (A.length == 2) return 0;
 
