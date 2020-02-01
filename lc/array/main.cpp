@@ -13,15 +13,15 @@ int removeDuplicates(vector<int>& nums) {
         //nums = [0,1,[2],3,1,2,2,[3],3,4],
         //nums = [0,1,2,[3],3,2,2,3,[3],4],
         //nums = [0,1,2,[3],4,2,2,3,3,[4]],
-        
+
         //nums = [[1],[1],2],
         //nums = [[1],1,[2]],
-        for (int i = 1;i<nums.size();++i) {            
+        for (int i = 1;i<nums.size();++i) {
             if (nums[i] != nums[len-1]) {
                 ++len;
                 nums[len-1] = nums[i];
             }
-        
+
         }
         return len;
     }
@@ -38,7 +38,7 @@ Design an algorithm to find the maximum profit. You may complete as many transac
         for (int j = i + 1; j<prices.size(); ++j) {
             int dd = d + (prices[j]*s);
             //cout <<"  j:"<<j<<" "<<d<<(s>0?"+":"-")<<prices[j]<<"="<<dd<<endl;
-            if (s > 0 && dd > 0 ||s < 0)  
+            if (s > 0 && dd > 0 ||s < 0)
                 max = rec(prices, j, dd, max, 0-s);
         }
         return max;
@@ -46,7 +46,7 @@ Design an algorithm to find the maximum profit. You may complete as many transac
     int maxProfit(vector<int>& prices) {
         int max = 0;
         for (int i = 0; i < prices.size(); ++i) {
-            //cout <<":"<<prices[i]<<endl;            
+            //cout <<":"<<prices[i]<<endl;
             int d = 0 - prices[i];
             int r = rec(prices, i, d, max, 1);
             if (r>max)
@@ -56,18 +56,75 @@ Design an algorithm to find the maximum profit. You may complete as many transac
     }
 ***
 Given an array, rotate the array to the right by k steps, where k is non-negative.
+ k %= nums.size();
+        if (nums.empty()||!k)return;
+        int prev = nums[0], i = 0;
+        bool pp = nums.size()%k == 0;
+        for (int ii = 0; ii < nums.size(); ++ii) {
+            i += k;
+            bool p = i>=nums.size();
+            if (p)
+                i %=nums.size();
 
+            int old = nums[i];
+            nums[i] = prev;
+            prev = old;
+            if (p && pp)
+                prev = nums[++i];
+
+        }
 
 ***
 Given an array of integers, find if the array contains any duplicates.
 
 Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.
 
+ bool containsDuplicate(vector<int>& nums) {
+        set<int> s;
+        for (int i:nums) {
+            s.insert(i);
+        }
+        return s.size() != nums.size();
+    }
+
 ***
 Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+
+int singleNumber(vector<int>& nums) {
+        int r = 0;
+        for (int a:nums) {
+            r ^= a;
+        }
+
+        return r;
+    }
 ***
 Given two arrays, write a function to compute their intersection.
 
+vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        int i = 0, j = 0;
+        vector<int> r;
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        while (i<nums1.size()&&j<nums2.size()) {
+            if (nums1[i] < nums2[j]) {
+                ++i;
+                continue;
+            }
+            if (nums1[i] == nums2[j]) {
+                r.push_back(nums1[i]);
+                ++j;
+                ++i;
+                continue;
+            }
+            if (nums1[i] > nums2[j]) {
+                ++j;
+                continue;
+            }
+
+        }
+        return r;
+    }
 ***
 Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
 
@@ -83,14 +140,14 @@ You may assume the integer does not contain any leading zero, except the number 
                 b = true;
                 break;
             }
-            
+
             digits[i] %= 10;
         }
         if (!b)
             digits.insert(digits.begin(), 1);
-        
+
         return digits;
-        
+
     }
 
 ***
@@ -104,12 +161,12 @@ Given an array nums, write a function to move all 0s to the end of it while main
                     nums[j] = nums[i];
                     nums[i] = 0;
                 }
-                
+
                 ++j;
             }
         }
-        
-        
+
+
     }
 
 ***
@@ -129,7 +186,7 @@ You may assume that each input would have exactly one solution, and you may not 
                     if (a!=i)
                         return {a, i};
                 }
-            
+
         }
         return {};
     }
