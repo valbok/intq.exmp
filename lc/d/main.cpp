@@ -136,3 +136,23 @@ int rob(vector<int>& nums) {
         }
         return max;
     }
+
+
+
+***
+The sub-strings of 123 are 1, 2, 3, 12, 23, 123 which sums to 164.
+int substrings(string n) {
+    long long prev = n[0] - '0';
+    long long r = prev;
+    long pp = (long long)(pow(10, 9) + 7);
+    for (int i = 1; i<n.size(); ++i) {
+        int c = n[i] - '0';
+        long long t = (long long)(c*(i+1)) + (prev * 10);
+        t %= pp;
+        prev = t;
+        r+=prev;
+        r %= pp;
+
+    }
+    return r;
+}
