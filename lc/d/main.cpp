@@ -12,19 +12,19 @@ int climb_Stairs(int i, int n, vector<int> &v) {
             return 1;
         }
         if (i+1>v.size() - 1){
-            
+
             v.push_back(-1);
         }
         if (i+2>v.size() - 1) {
-            
+
             v.push_back(-1);
         }
         int ii = v[i+1];
         if (ii == -1) {
             ii = climb_Stairs(i + 1, n, v);
             v[i+1] = ii;
-            
-            
+
+
         } else {
 
         }
@@ -39,6 +39,14 @@ int climb_Stairs(int i, int n, vector<int> &v) {
         vector<int> v = {-1};
         return climb_Stairs(0, n, v);
     }
+
+
+     dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
 
 ****
 Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
@@ -55,16 +63,16 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
         if (nums.empty()) return 0;
         int max = nums[0];
         // -2,1,-3,4,-1,2,1,-5,4
-        //    1,-2,4, 3,5,6,1 ,5    
+        //    1,-2,4, 3,5,6,1 ,5
         for (int i = 1; i < nums.size(); ++i) {
             nums[i] += nums[i - 1] > 0 ? nums[i - 1] : 0;
             if (nums[i] > max)
                 max = nums[i];
         }
-        // 
+        //
         return max;
-        
-        
+
+
     }
 
 ***
@@ -87,7 +95,7 @@ Note that you cannot sell a stock before you buy one.
                 r = d;
         }
 
-        return r;      
+        return r;
     }
 
 
@@ -116,7 +124,7 @@ int rob(vector<int>& nums) {
         // 2,7, 9, 3, 1
         // 2 7 11  11 12
         int max = nums[0];
-        if (nums[1] < max) 
+        if (nums[1] < max)
             nums[1] = max;
         else
             max = nums[1];
