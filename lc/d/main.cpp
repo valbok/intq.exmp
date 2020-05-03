@@ -156,3 +156,60 @@ int substrings(string n) {
     }
     return r;
 }
+
+
+**********
+long mandragora(vector<int> H) {
+    if (H.size() == 1) return H[0];
+    sort(H.begin(), H.end());
+    long long m = 0;
+    long long p = 0;
+    for (int i = H.size() - 1; i>=0; --i) {
+        p += H[i];
+        long long mm = (i + 1) * p;
+        if (mm > m){
+            m = mm;
+
+        }
+
+    }
+    // 5 2 6 11 29 12 7
+    // 2 5 6 7  11 12 29
+    //                7*29 203
+    //             6*(29+12) 246
+    //          5*(11+12+29) 260
+    //        4*(7+11+12+29)
+    //     3*(6+7+11+12+29)
+    //   2*(5+6+7+11+12+29) 140
+    return m;
+}
+
+
+***
+// 1 2 100 = 197
+long stockmax(vector<int> prices) {
+    long r = 0;
+
+    // 1 3   1 2
+    // + -:2 + -1=3
+    // + +   +
+    // 1 2 100
+    // + + - 200-1-2
+    // 1 2 3 4 = 6
+    // + + + -3*4=12-6=6
+    // + -
+    //   + -
+    //     + -
+    // 6 4 3 4 5 =4
+    //   + + + 20-4-3-4=4??
+    //   1 2 1
+
+    int m = prices[prices.size()-1];
+
+    for (int i = prices.size() - 2; i >=0; --i) {
+        if (prices[i] < m)
+            r+=m - prices[i];
+        else m = prices[i];
+    }
+    return r;
+}
