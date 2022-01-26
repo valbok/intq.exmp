@@ -34,11 +34,11 @@ public:
         LEFT1,
         RIGHT1,
 
-        UP2,
+        UP2, // 8
         DOWN2,
 
         LEFT2,
-        RIGHT2,
+        RIGHT2, //11
 
         UP3,
         DOWN3,
@@ -341,6 +341,7 @@ public:
 
     void print()
     {
+        std::cout << entropy() << ":" << std::endl;
         for (int k = 0; k < 6; ++k) {
             for (int i = 0; i < 3; ++i) {
                 for (int j = 0; j < 3; ++j) {

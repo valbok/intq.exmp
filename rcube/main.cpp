@@ -38,8 +38,14 @@ int main()
     if (!s.validate())
         return 1;
 
-    std::queue<State> q;
+    s.print();
+
+    //std::queue<State> q;
     std::map<State, std::pair<State, State::Step>> parent;
+
+    
+    auto cmp = [](State left, State right) { return left.entropy() < right.entropy(); };
+    std::priority_queue<State, std::vector<State>, decltype(cmp)> q(cmp);
 
     q.push(s);
 
@@ -59,10 +65,11 @@ std::vector<State::Step> steps = {
 
     while (!q.empty()) {
         std::cout << "[" << steps_count++ << "] "<<q.size() << "              \r";
-        auto st = q.front();
+        //auto st = q.front();
+        auto st = q.top();
         q.pop();
 
-        //st.print();
+        st.print();
 
         for (int i = 0; i < steps.size(); ++i) {
             auto step = steps[i];
@@ -71,10 +78,17 @@ std::vector<State::Step> steps = {
 
             auto it = parent.find(cp);
             if (it == parent.end()) {
-                q.push(cp);
-                parent[cp] = std::make_pair(st, step);
+                //std::cout << step<<":"<<st.entropy() << "-" << cp.entropy()<<"="<<(cp.entropy()-st.entropy())<<std::endl;
+                //std::cout<<"--------\n";
+                //cp.print();
+                
+                //if (cp.entropy() < st.entropy()) {
+                    q.push(cp);
 
-                if (cp == solved) {
+                    parent[cp] = std::make_pair(st, step);
+                //}
+
+                if (cp == solved || cp.entropy() == 0) {
                     std::cout << steps_count << "============================================\n";
 
                     cp.print();
