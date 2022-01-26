@@ -374,5 +374,26 @@ public:
 
     }
 
+    bool validate() const
+    {
+        int colors_count[6] = {0};
+        for (int k = 0; k < 6; ++k) {
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 3; ++j) {
+                    int color = _state[k][i][j];
+                    ++colors_count[color];
+                }
+            }
+        }
+        for (int k = 0; k < 6; ++k) {
+            if (colors_count[k] != 9) {
+                std::cout << k <<"="<< colors_count[k] << ": wrong color count" << std::endl;
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     unsigned char _state[6][3][3];
 };

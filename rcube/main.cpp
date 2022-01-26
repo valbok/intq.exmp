@@ -9,12 +9,34 @@ int main()
     State s;
     State solved;
 
-    s.step(State::UP2);
-    s.step(State::UP2);
-    s.step(State::LEFT2);
+    /*s.step(State::UP2);
     s.step(State::UP2);
     s.step(State::LEFT2);
-    s.print();
+    s.step(State::UP2);
+    s.step(State::LEFT2);
+    s.print();*/
+
+    s._state[State::YELLOW][2][0] = State::ORANGE;
+    s._state[State::YELLOW][2][1] = State::WHITE;
+    s._state[State::YELLOW][2][2] = State::WHITE;
+
+    s._state[State::BLUE][0][0] = State::WHITE;
+
+    s._state[State::WHITE][0][1] = State::YELLOW;
+    s._state[State::WHITE][0][2] = State::YELLOW;
+    s._state[State::WHITE][2][0] = State::GREEN;
+
+    s._state[State::GREEN][0][2] = State::ORANGE;
+    s._state[State::GREEN][2][0] = State::RED;
+
+    s._state[State::RED][2][0] = State::BLUE;
+    s._state[State::RED][2][2] = State::YELLOW;
+
+    s._state[State::ORANGE][2][0] = State::GREEN;
+    s._state[State::ORANGE][2][2] = State::RED;
+
+    if (!s.validate())
+        return 1;
 
     std::queue<State> q;
     std::map<State, std::pair<State, State::Step>> parent;
@@ -24,7 +46,17 @@ int main()
     int steps_count = 0;
     //std::vector<State::Step> steps = {State::UP2, State::DOWN2, State::LEFT2, State::RIGHT2, State::UP5, State::DOWN5};
     //std::vector<State::Step> steps = {State::LEFT2, State::RIGHT2, State::UP5, State::DOWN5};
-    std::vector<State::Step> steps = {State::UP2,  State::LEFT2, State::UP5};
+//    std::vector<State::Step> steps = {State::UP2,  State::LEFT2, State::UP5};
+
+std::vector<State::Step> steps = {
+        State::UP0, State::DOWN0, State::LEFT0, State::RIGHT0,
+        State::UP1, State::DOWN1, State::LEFT1, State::RIGHT1,
+        State::UP2, State::DOWN2, State::LEFT2, State::RIGHT2,
+        State::UP3, State::DOWN3,
+        State::UP4, State::DOWN4,
+        State::UP5, State::DOWN5
+    };    
+
     while (!q.empty()) {
         std::cout << "[" << steps_count++ << "] "<<q.size() << "              \r";
         auto st = q.front();
@@ -61,6 +93,6 @@ int main()
         }
 
     }
-std::cout <<"exited\n";
+
     return 0;
 }
