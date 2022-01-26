@@ -441,5 +441,16 @@ int main()
     origin.step(State::RIGHT2);
     assert(s == origin);
 
+    s = solved;
+    std::cout <<s.entropy()<<std::endl;
+    s.step(State::LEFT2);
+    std::cout <<s.entropy()<<std::endl;
+    s.step(State::UP1);
+    std::cout <<s.entropy()<<std::endl;
+    s.step(State::UP3);
+    std::cout <<s.entropy()<<std::endl;
+    s.step(State::UP5);
+    std::cout <<s.entropy()<<std::endl;
+
     return 0;
 }

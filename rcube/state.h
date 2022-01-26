@@ -395,5 +395,20 @@ public:
         return true;
     }
 
+    int entropy() const
+    {
+        int e = 0;
+        for (int k = 0; k < 6; ++k) {
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 3; ++j) {
+                    if (_state[k][i][j] != _state[k][1][1])
+                        ++e;
+                }
+            }
+        }
+
+        return e;
+    }
+
     unsigned char _state[6][3][3];
 };
