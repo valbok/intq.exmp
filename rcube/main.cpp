@@ -40,14 +40,11 @@ int main()
 
     s.print();
 
-    //std::queue<State> q;
+    std::queue<State> q;
     std::map<State, std::pair<State, State::Step>> parent;
 
     
-    auto cmp = [](State left, State right) { return left.entropy() < right.entropy(); };
-    std::priority_queue<State, std::vector<State>, decltype(cmp)> q(cmp);
-
-    q.push(s);
+        q.push(s);
 
     int steps_count = 0;
     //std::vector<State::Step> steps = {State::UP2, State::DOWN2, State::LEFT2, State::RIGHT2, State::UP5, State::DOWN5};
@@ -65,11 +62,10 @@ std::vector<State::Step> steps = {
 
     while (!q.empty()) {
         std::cout << "[" << steps_count++ << "] "<<q.size() << "              \r";
-        //auto st = q.front();
-        auto st = q.top();
+        auto st = q.front();
         q.pop();
 
-        st.print();
+        //st.print();
 
         for (int i = 0; i < steps.size(); ++i) {
             auto step = steps[i];
