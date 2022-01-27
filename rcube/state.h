@@ -37,7 +37,7 @@ public:
         UP2, // 8
         DOWN2,
 
-        LEFT2,
+        LEFT2, // 10
         RIGHT2, //11
 
         UP3,

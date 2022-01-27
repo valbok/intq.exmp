@@ -3,6 +3,19 @@
 
 #include <queue>
 #include <map>
+#include <algorithm>
+
+static void print_path(State st, const State &s, const std::map<State, std::pair<State, State::Step>> &parent)
+{    
+    for (int ip = 0; st != s; ++ip) {
+        auto it = parent.find(st);
+        if (it == parent.end())
+            break;
+        st = it->second.first;
+        std::cout << "  " << ip << "> step:" << it->second.second << std::endl;
+        st.print();
+    }
+}
 
 int main()
 {
@@ -49,7 +62,7 @@ int main()
     int steps_count = 0;
     //std::vector<State::Step> steps = {State::UP2, State::DOWN2, State::LEFT2, State::RIGHT2, State::UP5, State::DOWN5};
     //std::vector<State::Step> steps = {State::LEFT2, State::RIGHT2, State::UP5, State::DOWN5};
-//    std::vector<State::Step> steps = {State::UP2,  State::LEFT2, State::UP5};
+    
 
 std::vector<State::Step> steps = {
         State::UP0, State::DOWN0, State::LEFT0, State::RIGHT0,
@@ -59,14 +72,18 @@ std::vector<State::Step> steps = {
         State::UP4, State::DOWN4,
         State::UP5, State::DOWN5
     };    
+    //steps = {State::UP2,  State::LEFT2, State::UP5};
 
+    int prevEntropy = s.entropy();
     while (!q.empty()) {
-        std::cout << "[" << steps_count++ << "] "<<q.size() << "              \r";
+        
         auto st = q.front();
+        std::cout << "[" << steps_count++ << "] "<<q.size() << " e:" << prevEntropy << "->" << st.entropy() << "                 \r";
         q.pop();
 
         //st.print();
 
+        //std::vector<State> pending;
         for (int i = 0; i < steps.size(); ++i) {
             auto step = steps[i];
             auto cp = st;
@@ -79,28 +96,48 @@ std::vector<State::Step> steps = {
                 //cp.print();
                 
                 //if (cp.entropy() < st.entropy()) {
-                    q.push(cp);
+                parent[cp] = std::make_pair(st, step);
+                if (cp.entropy() < prevEntropy) {
+                    std::cout << "\n:::::::::" << prevEntropy << "-------------->" << cp.entropy()<<std::endl;
+                    prevEntropy = cp.entropy();
+                    cp.print();
+                    //parent[cp] = std::make_pair(st, step);
+                    print_path(cp, s, parent);
+                    //parent.clear();
+                    //q = std::queue<State>(); 
 
-                    parent[cp] = std::make_pair(st, step);
+                }
+
+                if (cp.entropy() - prevEntropy <= 15)
+                q.push(cp);
+
+                //parent[cp] = std::make_pair(st, step);
                 //}
+
 
                 if (cp == solved || cp.entropy() == 0) {
                     std::cout << steps_count << "============================================\n";
 
                     cp.print();
-                    for (int ip = 0; cp != s; ++ip) {
+                    print_path(cp, s, parent);
+                    /*for (int ip = 0; cp != s; ++ip) {
                         auto it = parent.find(cp);
                         if (it == parent.end())
                             break;
                         cp = it->second.first;
                         std::cout << ip << ":------" << it->second.second << std::endl;
                         cp.print();
-                    }
+                    }*/
 
                     return 0;
                 }  
             }
+
         }
+        //if (q.size() < 100000000) {
+        //std::sort(pending.begin(), pending.end(), [] (State &a, State &b) { return a.entropy() < b.entropy(); });
+        //for (auto &a:pending)            q.push(a);
+        //}
 
     }
 
